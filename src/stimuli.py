@@ -18,9 +18,9 @@ class PrimeHandler(data.TrialHandler):
         primes = random.sample(data.importConditions(file), primes)
 
         # Check if the loaded data matches the format.
-        if len(primes[0]) >= 5 and 'id' in primes[0] and 'forward' in primes[0] and 'prime' in primes[0] and 'backward' in primes[0] and 'neutral' in primes[0]:
+        if len(primes[0]) == 4 and 'forward' in primes[0] and 'prime' in primes[0] and 'backward' in primes[0] and 'neutral' in primes[0]:
             self.__basepath = os.path.dirname(os.path.abspath(file))
-            data.TrialHandler.__init__(self, primes, nReps=1, dataTypes=['order', 'id', 'correct'])
+            data.TrialHandler.__init__(self, primes, nReps=1, dataTypes=['order', 'correct'])
         else:
             raise ValueError('Invalid prime list')
 
@@ -34,28 +34,28 @@ class PrimeHandler(data.TrialHandler):
         prime_path = os.path.join(self.__basepath, self.thisTrial['prime'])
         backward_path = os.path.join(self.__basepath, self.thisTrial['backward'])
         neutral_path = os.path.join(self.__basepath, self.thisTrial['neutral'])
-        return Prime(self.thisTrial['id'], forward_path, prime_path, backward_path, neutral_path)
+        return Prime(forward_path, prime_path, backward_path, neutral_path)
 
-    def addResult(self, result):
+    def addResult(self, experiment, result):
         '''
         Adds the result of a priming session.
         '''
-        self.addData('order', self.thisIndex)
-        self.addData('id', self.thisTrial['id'])
         self.addData('result', result)
+        experiment.nextEntry()
 
 class Prime:
     ''' A drawable prime. '''
 
-    def __init__(self, id, forward_path, prime_path, backward_path, neutral_path):
+    def __init__(self, forward_path, prime_path, backward_path, neutral_path):
         '''
         Creates a new prime.
         :param number id: An id for the prime.
-        :param str neutral_path: The path of the image which is the forward and backward mask.
+        :param str forward_path: The path of the image which is the forward mask.
+        :param str neutral_path: The path of the image which is the neutral stimulus.
         :param str prime_path: The path of the image which is the actual prime.
+        :param str backward_path: The path of the image which is the backward mask.
         :raises ValueError: If the paths are not valid files.
         '''
-        self.id = id
         if not os.path.isfile(forward_path):
             raise ValueError('Forward path invalid!')
         elif not os.path.isfile(backward_path):
@@ -143,7 +143,7 @@ class Prime:
             neutral.draw()
             window.flip()
 
-        rating = visual.RatingScale(win, high=10, labels=['Absolut unattraktiv', 'Absolut attraktiv'], scale=None, pos=(0, -0.5), acceptPreText='Bitte bewerten Sie das Aussehen der Person.', acceptSize=2.8)
+        rating = visual.RatingScale(window, high=10, labels=['Absolut unattraktiv', 'Absolut attraktiv'], scale=None, acceptPreText='Bitte bewerten Sie das Aussehen.', acceptSize=2.8)
         while rating.noResponse:
             rating.draw()
             window.flip()
