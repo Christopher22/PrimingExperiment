@@ -1,0 +1,1 @@
+This experiment uses the disgust and neutral faces from a collection of the Emotion Lab of the Karolinska Institute. These stimuli are not located here for copyright reasons but are available under http://www.emotionlab.se/resources/kdef/download.
