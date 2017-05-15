@@ -6,6 +6,7 @@ from psychopy import visual, event, data
 from stimuli import PrimeHandler
 from dilemma import DilemmaHandler
 from subject import Subject
+from emotions import Emotions
 
 from itertools import islice
 
@@ -48,4 +49,9 @@ if subject:
     print("Prime length", win.monitorFramePeriod)
 
     show_dilemmata(exp, win, number_dilemmata=1, number_primes=3, forward=1, prime=1, backward=1, neutral=157)
+
+    # Check emotions afterward
+    emotion = Emotions.from_window(win)
+    emotion.save(exp)
+
     win.close()
