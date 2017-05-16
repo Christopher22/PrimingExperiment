@@ -73,6 +73,8 @@ class Dilemma:
             pos=(0, -0.5),
             acceptPreText='Bitte bewerten Sie die Entscheidung',
             acceptSize=2.8,
+            showValue=False,
+            acceptText='Bewertung abgeben'
             )
 
         while rating.noResponse:

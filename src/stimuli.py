@@ -142,8 +142,10 @@ class Prime:
         for frame in range(neutral_len):
             neutral.draw()
             window.flip()
+            if event.getKeys('space'):
+                break
 
-        rating = visual.RatingScale(window, high=10, labels=['Absolut unattraktiv', 'Absolut attraktiv'], scale=None, acceptPreText='Bitte bewerten Sie das Aussehen.', acceptSize=2.8)
+        rating = visual.RatingScale(window, high=10, labels=['Absolut unsympathisch', 'Absolut sympathisch'], scale=None, pos=(0,0), acceptPreText='Bitte bewerten Sie das Aussehen.', showValue=False, acceptSize=2.8, acceptText='Bewertung abgeben')
         while rating.noResponse:
             rating.draw()
             window.flip()
