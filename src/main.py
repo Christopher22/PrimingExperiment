@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from psychopy import visual, event, data
+from psychopy.constants import PLAYING
 
 from stimuli import PrimeHandler
 from dilemma import DilemmaHandler
@@ -14,7 +15,7 @@ def show_dilemmata(experiment, window, number_dilemmata, number_primes, forward,
     '''
     Shows a number of possible primed dilemmata.
     :param data.ExperimentHandler experiment: The current experiment
-    :param number window: The number the stimuli are to be shown.
+    :param visual.Window window: The window to draw into.
     :param str number_dilemmata: The number of dilemmata which are to be shown.
     :param number number_primes: The number of primes per dilemma which are to be shown.
     :param number forward: The number of frames the forward mask will be presented.
@@ -38,6 +39,19 @@ def show_dilemmata(experiment, window, number_dilemmata, number_primes, forward,
         dilemma = dilemmata.currentDilemma()
         dilemmata.addResult(experiment, dilemma.show(window))
 
+def show_movie(win):
+    '''
+    Presents a movie for the de-priming.
+    :param visual.Window win: The window to draw into.
+    '''
+    text = visual.TextStim(win, "Eine kleine Pause...", pos=(0, 0.8))
+    mov = visual.MovieStim3(win, '../stimuli/pause.mp4', size=(640, 480))
+    mov.play()
+    while mov.status == PLAYING:
+        text.draw()
+        mov.draw()
+        win.flip()
+
 # Load the subject from the dialog
 subject = Subject.from_dialog()
 if subject:
@@ -48,7 +62,9 @@ if subject:
     # Print the length of a frame
     print("Prime length", win.monitorFramePeriod)
 
-    show_dilemmata(exp, win, number_dilemmata=1, number_primes=3, forward=1, prime=1, backward=1, neutral=157)
+    show_movie(win)
+
+    show_dilemmata(exp, win, number_dilemmata=1, number_primes=3, forward=1, prime=1, backward=1, neutral=237)
 
     # Check emotions afterward
     emotion = Emotions.from_window(win)
