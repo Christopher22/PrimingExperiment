@@ -145,7 +145,10 @@ class Prime:
             if event.getKeys('space'):
                 break
 
-        rating = visual.RatingScale(window, high=10, labels=['Absolut unsympathisch', 'Absolut sympathisch'], scale=None, pos=(0,0), acceptPreText='Bitte bewerten Sie das Aussehen.', showValue=False, acceptSize=2.8, acceptText='Bewertung abgeben')
+        # Remove unecessary spaces
+        event.clearEvents()
+
+        rating = visual.RatingScale(window, high=10, acceptKeys=['space'], labels=['Absolut unsympathisch', 'Absolut sympathisch'], scale=None, pos=(0,0), acceptPreText='Bitte bewerten Sie das Aussehen.', showValue=False, acceptSize=2.8, acceptText='Bewertung abgeben')
         while rating.noResponse:
             rating.draw()
             window.flip()
