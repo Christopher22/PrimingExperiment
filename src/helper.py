@@ -5,16 +5,17 @@ from psychopy import visual
 
 import random
 
-'''
-Present up to 4 rating scales.
-:param visual.Window window: The window to draw into.
-:param str title: The overall title.
-:param list ratings: [[name, [scale], title, numberSelection], ...]
-:param list buttonText: [buttonBefore, buttonAfter].
-:param bool randomOrder: Check if the order should be randomized.
-:return map: A map with the corresponding names and values.
-'''
 def showRatings(window, title, ratings, buttonText, randomOrder=False):
+    '''
+    Present up to 4 rating scales.
+    :param visual.Window window: The window to draw into.
+    :param str title: The overall title.
+    :param list ratings: [[name, [scale], title, numberSelection], ...]
+    :param list buttonText: [buttonBefore, buttonAfter].
+    :param bool randomOrder: Check if the order should be randomized.
+    :return map: A map with the corresponding names and values.
+    '''
+
     if len(buttonText) is not 2:
         raise ValueError('Invalid button texts')
     elif len(ratings) > 4:
@@ -31,7 +32,7 @@ def showRatings(window, title, ratings, buttonText, randomOrder=False):
     ratingScales = []
     yPos = 0.45
     for i, scale in enumerate(ratings):
-        ratingScale = visual.RatingScale(window, size=0.9, high=ratings[i][3], labels=ratings[i][1], scale=ratings[i][2], showAccept=(True if i == len(ratings) - 1 else False), pos=(0, yPos), acceptPreText=buttonText[0], acceptSize=2.8, showValue=False, acceptText=buttonText[1])
+        ratingScale = visual.RatingScale(window, textSize=0.8, size=0.9, high=ratings[i][3], labels=ratings[i][1], scale=ratings[i][2], showAccept=(True if i == len(ratings) - 1 else False), pos=(0, yPos), acceptPreText=buttonText[0], acceptSize=2.8, showValue=False, acceptText=buttonText[1])
         ratingScales.append(ratingScale)
         yPos -= 0.35
 
