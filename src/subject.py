@@ -7,7 +7,7 @@ import time
 class Subject:
     ''' A participating subject. '''
 
-    def __init__(self, id, age, gender):
+    def __init__(self, id, group, age, gender):
         '''
         Creates a new subject.
         :param str id: The id of the subject.
@@ -15,6 +15,7 @@ class Subject:
         :param str gender: The gender of the subject ("m" or "f").
         '''
         self._id = id
+        self._group = group
         self._age = age
         self._gender = gender
 
@@ -31,6 +32,13 @@ class Subject:
         :return str: The id.
         '''
         return self._id
+
+    def group(self):
+        '''
+        Returns the group of the subject.
+        :return str: The group of the object.
+        '''
+        return self._group
 
     def age(self):
         '''
@@ -51,7 +59,7 @@ class Subject:
         Returns a representation as dictionary.
         :return: A dictionary
         '''
-        return {'id': self._id, 'age': self._age, 'gender': self._gender}
+        return {'id': self._id, 'groupt': self._group, 'age': self._age, 'gender': self._gender}
 
     @staticmethod
     def from_dialog():
@@ -72,11 +80,12 @@ class Subject:
         dlg.addText('Bitte starte es erst, wenn du dazu aufgefordert wirst.')
 
         dlg.addFixedField("Anonyme ID:", generate_id())
+        dlg.addField('Gruppe:', choices=["A", "B"])
         dlg.addField('Alter:')
         dlg.addField('Geschlecht:', choices=["Frau", "Mann"])
 
-        id, age, gender = dlg.show()
+        id, group, age, gender = dlg.show()
         if dlg.OK and int(age) >= 18:
-            return Subject(id, age, 'f' if gender == 'Frau' else 'm')
+            return Subject(id, group, age, 'f' if gender == 'Frau' else 'm')
         else:
             return False
