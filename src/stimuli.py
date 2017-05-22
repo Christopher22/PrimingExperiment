@@ -117,6 +117,9 @@ class Prime:
         prime = self.prime(window)
         neutral = self.neutral(window)
 
+        # Hide cursor
+        window.mouseVisible = False
+
         # Predraw all stimuli for performance reasons
         forward.draw()
         backward.draw()
@@ -145,9 +148,8 @@ class Prime:
             if event.getKeys('space'):
                 break
 
-        # Remove unecessary spaces
-        event.clearEvents()
-
+        # Show cursor and rating
+        window.mouseVisible = True
         rating = visual.RatingScale(window, high=10, acceptKeys=['space'], labels=['Absolut unsympathisch', 'Absolut sympathisch'], scale=None, pos=(0,0), acceptPreText='Bitte bewerten Sie das Aussehen.', showValue=False, acceptSize=2.8, acceptText='Bewertung abgeben')
         while rating.noResponse:
             rating.draw()
