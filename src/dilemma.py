@@ -67,10 +67,12 @@ class Dilemma:
         text = visual.TextStim(win, self.__text, pos=(0, 0.2), height=0.06)
         rating = visual.RatingScale(
             win,
-            high=10,
+            low=0,
+            high=9,
             labels=['Absolut unakzeptabel', 'Absolut akzeptabel'],
             scale=None,
             pos=(0, -0.5),
+            acceptKeys=['space'],
             acceptPreText='Bitte bewerten Sie die Entscheidung',
             acceptSize=2.8,
             showValue=False,

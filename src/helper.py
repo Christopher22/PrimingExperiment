@@ -32,7 +32,7 @@ def showRatings(window, title, ratings, buttonText, randomOrder=False):
     ratingScales = []
     yPos = 0.45
     for i, scale in enumerate(ratings):
-        ratingScale = visual.RatingScale(window, textSize=0.8, size=0.9, high=ratings[i][3], labels=ratings[i][1], scale=ratings[i][2], showAccept=(True if i == len(ratings) - 1 else False), pos=(0, yPos), acceptPreText=buttonText[0], acceptSize=2.8, showValue=False, acceptText=buttonText[1])
+        ratingScale = visual.RatingScale(window, textSize=0.8, size=0.9, low=0, high=ratings[i][3] - 1, acceptKeys=['space'], labels=ratings[i][1], scale=ratings[i][2], showAccept=(True if i == len(ratings) - 1 else False), pos=(0, yPos), acceptPreText=buttonText[0], acceptSize=2.8, showValue=False, acceptText=buttonText[1])
         ratingScales.append(ratingScale)
         yPos -= 0.35
 
