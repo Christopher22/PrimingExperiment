@@ -17,6 +17,7 @@ def show_dilemmata(experiment, window, dilemmata, number_dilemmata, number_prime
     Shows a number of possible primed dilemmata.
     :param data.ExperimentHandler experiment: The current experiment
     :param visual.Window window: The window to draw into.
+    :param number dilemmata: The file from which the dilemmata should be loaded.
     :param str number_dilemmata: The number of dilemmata which are to be shown.
     :param number number_primes: The number of primes per dilemma which are to be shown.
     :param number forward: The number of frames the forward mask will be presented.
@@ -61,15 +62,15 @@ if subject:
     win = visual.Window(fullscr=True, monitor='testMonitor', checkTiming=True)
 
     # Show first dilemmata group
-    show_dilemmata(exp, win, '../stimuli/dilemmata0.csv', number_dilemmata=2, number_primes=7, forward=1, prime=(1 if subject.group() is "A" else 0), backward=1, neutral=237)
+    show_dilemmata(exp, win, '../stimuli/dilemmata0.csv', number_dilemmata=10, number_primes=7, forward=1, prime=(1 if subject.group() is "A" else 0), backward=1, neutral=237)
     Emotions.from_window(win).save(exp)
 
     # Show depriming sequence
-    show_movie(win)
-    Emotions.from_window(win).save(exp)
+    #show_movie(win)
+    #Emotions.from_window(win).save(exp)
 
     # Show second dilemmata group
-    show_dilemmata(exp, win, '../stimuli/dilemmata1.csv', number_dilemmata=2, number_primes=7, forward=1, prime=(0 if subject.group() is "A" else 1), backward=1, neutral=237)
+    show_dilemmata(exp, win, '../stimuli/dilemmata1.csv', number_dilemmata=10, number_primes=7, forward=1, prime=(0 if subject.group() is "A" else 1), backward=1, neutral=237)
     Emotions.from_window(win).save(exp)
 
     # Check disgust level
