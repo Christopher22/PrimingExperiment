@@ -12,7 +12,7 @@ from dsr import DSR
 
 from itertools import islice
 
-def show_dilemmata(experiment, window, dilemmata, number_dilemmata, number_primes, forward, prime, backward, neutral):
+def show_dilemmata(experiment, window, dilemmata, number_dilemmata, number_primes, forward, prime, backward):
     '''
     Shows a number of possible primed dilemmata.
     :param data.ExperimentHandler experiment: The current experiment
@@ -23,7 +23,6 @@ def show_dilemmata(experiment, window, dilemmata, number_dilemmata, number_prime
     :param number forward: The number of frames the forward mask will be presented.
     :param number prime: The number of frames the priem will be presented.
     :param number backward: The number of frames the backward mask will be presented.
-    :param number neutral:  The number of frames the neutral stimuli will be presented.
     '''
     dilemmata = DilemmaHandler(dilemmata, number_dilemmata)
     primes = PrimeHandler('../stimuli/primes.csv', number_dilemmata * number_primes)
@@ -35,7 +34,7 @@ def show_dilemmata(experiment, window, dilemmata, number_dilemmata, number_prime
     for _ in dilemmata:
         # Show the primes
         for _ in islice(primes, number_primes):
-            result = primes.currentPrime().show(window, forward, prime, backward, neutral)
+            result = primes.currentPrime().show(window, forward, prime, backward)
             primes.addResult(experiment, result)
 
         dilemma = dilemmata.currentDilemma()
@@ -62,7 +61,7 @@ if subject:
     win = visual.Window(fullscr=True, monitor='testMonitor', checkTiming=True)
 
     # Show first dilemmata group
-    show_dilemmata(exp, win, '../stimuli/dilemmata0.csv', number_dilemmata=10, number_primes=7, forward=1, prime=(1 if subject.group() is "A" else 0), backward=1, neutral=237)
+    show_dilemmata(exp, win, '../stimuli/dilemmata0.csv', number_dilemmata=10, number_primes=7, forward=1, prime=(1 if subject.group() is "A" else 0), backward=1)
     Emotions.from_window(win).save(exp)
 
     # Show depriming sequence
@@ -70,7 +69,7 @@ if subject:
     #Emotions.from_window(win).save(exp)
 
     # Show second dilemmata group
-    show_dilemmata(exp, win, '../stimuli/dilemmata1.csv', number_dilemmata=10, number_primes=7, forward=1, prime=(0 if subject.group() is "A" else 1), backward=1, neutral=237)
+    show_dilemmata(exp, win, '../stimuli/dilemmata1.csv', number_dilemmata=10, number_primes=7, forward=1, prime=(0 if subject.group() is "A" else 1), backward=1)
     Emotions.from_window(win).save(exp)
 
     # Check disgust level

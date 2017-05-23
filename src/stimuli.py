@@ -102,14 +102,13 @@ class Prime:
         '''
         return visual.ImageStim(window, self._neutral)
 
-    def show(self, window, forward_len, prime_len, backward_len, neutral_len):
+    def show(self, window, forward_len, prime_len, backward_len):
         '''
         Shows a prime
         :param visual.Window window: The window in which the prime should be drawn.
         :param number forward_len: The lenght of the forward mask in frames.
         :param number prime_len: The lenght of the prime in frames.
         :param number backward_len: The lenght of the backward mask in frames.
-        :param number neutral_len: The lenght of the neutral image in frames.
         :return: A result of an attractiveness test.
         '''
         forward = self.forward_mask(window)
@@ -117,8 +116,20 @@ class Prime:
         prime = self.prime(window)
         neutral = self.neutral(window)
 
-        # Hide cursor
-        window.mouseVisible = False
+        # Adjust size
+        forward.size *= 0.75
+        backward.size *= 0.75
+        prime.size *= 0.75
+        neutral.size *= 0.75
+
+        # Adjust position
+        forward.pos = (0, 0.2)
+        backward.pos = (0, 0.2)
+        prime.pos = (0, 0.2)
+        neutral.pos = (0, 0.2)
+
+        # Prepare the rating
+        rating = visual.RatingScale(window, high=10, acceptKeys=['space'], labels=['Absolut unsympathisch', 'Absolut sympathisch'], scale=None, pos=(0,-0.5), acceptPreText='Bitte bewerten Sie das Aussehen.', showValue=False, acceptSize=2.8, acceptText='Bewertung abgeben')
 
         # Predraw all stimuli for performance reasons
         forward.draw()
@@ -129,29 +140,23 @@ class Prime:
         # Draw the forward mask.
         for frame in range(forward_len):
             forward.draw()
+            rating.draw()
             window.flip()
 
         # Draw the prime.
         for frame in range(prime_len):
             prime.draw()
+            rating.draw()
             window.flip()
 
         # Draw the backward mask.
         for frame in range(backward_len):
             backward.draw()
+            rating.draw()
             window.flip()
 
-        # Draw the neutral image.
-        for frame in range(neutral_len):
-            neutral.draw()
-            window.flip()
-            if event.getKeys('space'):
-                break
-
-        # Show cursor and rating
-        window.mouseVisible = True
-        rating = visual.RatingScale(window, high=10, acceptKeys=['space'], labels=['Absolut unsympathisch', 'Absolut sympathisch'], scale=None, pos=(0,0), acceptPreText='Bitte bewerten Sie das Aussehen.', showValue=False, acceptSize=2.8, acceptText='Bewertung abgeben')
         while rating.noResponse:
+            neutral.draw()
             rating.draw()
             window.flip()
         return rating.getRating()
