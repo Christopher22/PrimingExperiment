@@ -20,7 +20,7 @@ class PrimeHandler(data.TrialHandler):
         # Check if the loaded data matches the format.
         if len(primes[0]) == 4 and 'forward' in primes[0] and 'prime' in primes[0] and 'backward' in primes[0] and 'neutral' in primes[0]:
             self.__basepath = os.path.dirname(os.path.abspath(file))
-            data.TrialHandler.__init__(self, primes, nReps=1, dataTypes=['order', 'correct'])
+            data.TrialHandler.__init__(self, primes, nReps=1, dataTypes=['result'], method="fullRandom")
         else:
             raise ValueError('Invalid prime list')
 

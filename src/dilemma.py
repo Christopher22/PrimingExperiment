@@ -21,7 +21,7 @@ class DilemmaHandler(data.TrialHandler):
 
         # Check if the loaded data matches the format.
         if len(dilemmata[0]) == 1 and 'dilemma' in dilemmata[0]:
-            data.TrialHandler.__init__(self, dilemmata, nReps=1, dataTypes=['rating'])
+            data.TrialHandler.__init__(self, dilemmata, nReps=1, dataTypes=['rating'], method="fullRandom")
         else:
             raise ValueError('Invalid prime list')
 

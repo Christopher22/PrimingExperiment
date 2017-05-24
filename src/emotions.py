@@ -71,7 +71,7 @@ class Emotions:
         :param visual.Window window: The window in which the questionaire should be drawn.
         :return Emotions: The collection.
         '''
-        results = showRatings(window, "Bitte bewerten Sie ihre aktuellen Emotionen:", [
+        results = showRatings(window, "Bitte bewerten Sie Ihre aktuellen Emotionen:", [
             ['happiness', [u'Gar nicht fröhlich', u'Sehr fröhlich'], u'Fröhlichkeit', 10],
             ['anger', [u'Gar nicht wütend', u'Sehr wütend'], 'Wut', 10],
             ['sadness', [u'Gar nicht traurig', 'Sehr traurig'], 'Traurigkeit', 10],
