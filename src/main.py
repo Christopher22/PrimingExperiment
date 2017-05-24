@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-from psychopy import visual, event, data
+from psychopy import core, visual, event, data
 from psychopy.constants import PLAYING
 
 from stimuli import PrimeHandler
@@ -78,38 +78,36 @@ def show_welcome(win, text, frontHeight):
         text.draw()
         win.flip()
 
-# Introduction test
-WELCOME = u"""Herzlich willkommen!
+# Load the subject from the dialog
+subject = Subject.from_dialog()
+if not subject: core.quit()
+
+fileName = '../data/{}'.format(str(subject))
+exp = data.ExperimentHandler(name='PrimingMeetsDilemma', version='0.1', extraInfo=subject.to_dictionary(), originPath='../data/', savePickle=False, saveWideText=True, dataFileName=fileName)
+win = visual.Window(fullscr=True, monitor='testMonitor', checkTiming=True)
+
+# Show welcome screen
+show_welcome(win, u"""Herzlich willkommen!
 Im Folgenden wirst Du männlich und weibliche Gesichter sehen. Wir bitten Dich, diese nach Sympathie zu bewerten. Die Auswahlmöglichkeiten liegen zwischen absolut unsympathisch und sympathisch.
 
 Anschließend werden Dir moralische Dilemmata präsentiert werden. Deine Aufgabe besteht darin, den Ausgang des Dilemmas zwischen absoluter Ablehnung und vollkommender Zustimmung auf Akzeptanz zu bewerten.
 
-Bitte drücke die Leertaste um fortzufahren."""
+Bitte drücke die Leertaste um fortzufahren.""", 0.05)
 
-# Load the subject from the dialog
-subject = Subject.from_dialog()
-if subject:
-    fileName = '../data/{}'.format(str(subject))
-    exp = data.ExperimentHandler(name='PrimingMeetsDilemma', version='0.1', extraInfo=subject.to_dictionary(), originPath='../data/', savePickle=False, saveWideText=True, dataFileName=fileName)
-    win = visual.Window(fullscr=True, monitor='testMonitor', checkTiming=True)
+# Show first dilemmata group
+show_dilemmata(exp, win, '../stimuli/dilemmata0.csv', number_dilemmata=10, number_primes=7, forward=1, prime=(1 if subject.group() is "A" else 0), backward=1)
+Emotions.from_window(win).save(exp)
 
-    # Show welcome screen
-    show_welcome(win, WELCOME, 0.05)
+# Show depriming sequence
+show_movie(win)
+show_complex_shape(win)
+Emotions.from_window(win).save(exp)
 
-    # Show first dilemmata group
-    show_dilemmata(exp, win, '../stimuli/dilemmata0.csv', number_dilemmata=10, number_primes=7, forward=1, prime=(1 if subject.group() is "A" else 0), backward=1)
-    Emotions.from_window(win).save(exp)
+# Show second dilemmata group
+show_dilemmata(exp, win, '../stimuli/dilemmata1.csv', number_dilemmata=10, number_primes=7, forward=1, prime=(0 if subject.group() is "A" else 1), backward=1)
+Emotions.from_window(win).save(exp)
 
-    # Show depriming sequence
-    show_movie(win)
-    show_complex_shape(win)
-    Emotions.from_window(win).save(exp)
+# Check disgust level
+DSR.from_window(win).save(exp)
 
-    # Show second dilemmata group
-    show_dilemmata(exp, win, '../stimuli/dilemmata1.csv', number_dilemmata=10, number_primes=7, forward=1, prime=(0 if subject.group() is "A" else 1), backward=1)
-    Emotions.from_window(win).save(exp)
-
-    # Check disgust level
-    DSR.from_window(win).save(exp)
-
-    win.close()
+win.close()
