@@ -73,7 +73,7 @@ class Dilemma:
             scale=None,
             pos=(0, -0.5),
             acceptKeys=['space'],
-            acceptPreText='Bitte bewerten Sie die Entscheidung',
+            acceptPreText='Bitte bewerte die Entscheidung.',
             acceptSize=2.8,
             showValue=False,
             acceptText='Bewertung abgeben'
