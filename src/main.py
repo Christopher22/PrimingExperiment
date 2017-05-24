@@ -55,17 +55,18 @@ def show_movie(win):
 
 def show_complex_shape(win):
     '''
-    Presents a complex shape for the de-priming until space is pressed.
+    Presents a complex shape for the de-priming until space is pressed or 90 seconds are gone.
     :param visual.Window win: The window to draw into.
     '''
-    introduction = visual.TextStim(win, u"Bitte zeichne diese komplexe Form ab und drücke danach die Leertaste um fortzufahren:", pos=(0, 0.7), height=0.08)
+    introduction = visual.TextStim(win, u"Bitte zeichne diese komplexe Form innerhalb von 90 Sekunden ab und drücke danach die Leertaste um fortzufahren:", pos=(0, 0.7), height=0.08)
     shape = visual.ImageStim(win, "../stimuli/complex_shape.png", pos=(0, -0.2))
     shape.size *= 2.5
 
-    while len(event.getKeys(["space"])) is 0:
-        introduction.draw()
-        shape.draw()
-        win.flip()
+    introduction.draw()
+    shape.draw()
+    win.flip()
+
+    event.waitKeys(maxWait=90, keyList=['space'])
 
 def show_text(win, text, frontHeight):
     '''
@@ -73,10 +74,8 @@ def show_text(win, text, frontHeight):
     :param visual.Window win: The window to draw into.
     :param visual.Window text: The text of the welcome screen.
     '''
-    text = visual.TextStim(win, text, height=frontHeight)
-    while len(event.getKeys(["space"])) is 0:
-        text.draw()
-        win.flip()
+    visual.TextStim(win, text, height=frontHeight).draw()
+    event.waitKeys(keyList=['space'])
 
 # Load the subject from the dialog
 subject = Subject.from_dialog()
