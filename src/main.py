@@ -53,12 +53,34 @@ def show_movie(win):
         mov.draw()
         win.flip()
 
+def show_welcome(win, text, frontHeight):
+    '''
+    Present the introduction screen until 'space' is pressed.
+    :param visual.Window win: The window to draw into.
+    :param visual.Window text: The text of the welcome screen.
+    '''
+    text = visual.TextStim(win, text, height=frontHeight)
+    while len(event.getKeys(["space"])) is 0:
+        text.draw()
+        win.flip()
+
+# Introduction test
+WELCOME = u"""Herzlich willkommen!
+Im Folgenden wirst Du männlich und weibliche Gesichter sehen. Wir bitten Dich, diese nach Sympathie zu bewerten. Die Auswahlmöglichkeiten liegen zwischen absolut unsympathisch und sympathisch.
+
+Anschließend werden Dir moralische Dilemmata präsentiert werden. Deine Aufgabe besteht darin, den Ausgang des Dilemmas zwischen absoluter Ablehnung und vollkommender Zustimmung auf Akzeptanz zu bewerten.
+
+Bitte drücke die Leertaste um fortzufahren."""
+
 # Load the subject from the dialog
 subject = Subject.from_dialog()
 if subject:
     fileName = '../data/{}'.format(str(subject))
     exp = data.ExperimentHandler(name='PrimingMeetsDilemma', version='0.1', extraInfo=subject.to_dictionary(), originPath='../data/', savePickle=False, saveWideText=True, dataFileName=fileName)
     win = visual.Window(fullscr=True, monitor='testMonitor', checkTiming=True)
+
+    # Show welcome screen
+    show_welcome(win, WELCOME, 0.05)
 
     # Show first dilemmata group
     show_dilemmata(exp, win, '../stimuli/dilemmata0.csv', number_dilemmata=10, number_primes=7, forward=1, prime=(1 if subject.group() is "A" else 0), backward=1)
