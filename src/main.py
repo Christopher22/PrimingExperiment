@@ -46,7 +46,7 @@ def show_movie(win):
     :param visual.Window win: The window to draw into.
     '''
     text = visual.TextStim(win, "Eine kleine Pause...", pos=(0, 0.8))
-    mov = visual.MovieStim2(win, '../stimuli/pause.mp4', size=(640, 480))
+    mov = visual.MovieStim2(win, '../stimuli/pause.mp4', size=(640, 480), pos=(0, -0.2))
     mov.play()
     while mov.status == PLAYING:
         text.draw()
@@ -67,7 +67,7 @@ def show_complex_shape(win):
         shape.draw()
         win.flip()
 
-def show_welcome(win, text, frontHeight):
+def show_text(win, text, frontHeight):
     '''
     Present the introduction screen until 'space' is pressed.
     :param visual.Window win: The window to draw into.
@@ -87,10 +87,10 @@ exp = data.ExperimentHandler(name='PrimingMeetsDilemma', version='0.1', extraInf
 win = visual.Window(fullscr=True, monitor='testMonitor', checkTiming=True)
 
 # Show welcome screen
-show_welcome(win, u"""Herzlich willkommen!
-Im Folgenden wirst Du männlich und weibliche Gesichter sehen. Wir bitten Dich, diese nach Sympathie zu bewerten. Die Auswahlmöglichkeiten liegen zwischen absolut unsympathisch und sympathisch.
+show_text(win, u"""Herzlich willkommen!
+Im Folgenden wirst Du verschieden Gesichter sehen. Wir bitten Dich, diese nach ihrer Sympathie zu bewerten.
 
-Anschließend werden Dir moralische Dilemmata präsentiert werden. Deine Aufgabe besteht darin, den Ausgang des Dilemmas zwischen absoluter Ablehnung und vollkommender Zustimmung auf Akzeptanz zu bewerten.
+Anschließend werden Dir moralische Dilemmata präsentiert. Deine Aufgabe besteht darin, den Ausgang des Dilemmas zwischen absoluter Ablehnung und vollkommender Zustimmung auf Akzeptanz zu bewerten.
 
 Bitte drücke die Leertaste um fortzufahren.""", 0.05)
 
@@ -109,5 +109,10 @@ Emotions.from_window(win).save(exp)
 
 # Check disgust level
 DSR.from_window(win).save(exp)
+
+# Show goodby message
+show_text(win, u"""Du hast es geschafft: Vielen Dank für Deine Teilnahme!
+
+Bitte warte ruhig auf die Experimentleitung.""", 0.08)
 
 win.close()
