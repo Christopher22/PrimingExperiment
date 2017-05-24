@@ -46,7 +46,7 @@ def show_movie(win):
     :param visual.Window win: The window to draw into.
     '''
     text = visual.TextStim(win, "Eine kleine Pause...", pos=(0, 0.8))
-    mov = visual.MovieStim3(win, '../stimuli/pause.mp4', size=(640, 480))
+    mov = visual.MovieStim2(win, '../stimuli/pause.mp4', size=(640, 480))
     mov.play()
     while mov.status == PLAYING:
         text.draw()
@@ -87,8 +87,8 @@ if subject:
     Emotions.from_window(win).save(exp)
 
     # Show depriming sequence
-    #show_movie(win)
-    #Emotions.from_window(win).save(exp)
+    show_movie(win)
+    Emotions.from_window(win).save(exp)
 
     # Show second dilemmata group
     show_dilemmata(exp, win, '../stimuli/dilemmata1.csv', number_dilemmata=10, number_primes=7, forward=1, prime=(0 if subject.group() is "A" else 1), backward=1)
