@@ -53,6 +53,20 @@ def show_movie(win):
         mov.draw()
         win.flip()
 
+def show_complex_shape(win):
+    '''
+    Presents a complex shape for the de-priming until space is pressed.
+    :param visual.Window win: The window to draw into.
+    '''
+    introduction = visual.TextStim(win, u"Bitte zeichne diese komplexe Form ab und drücke danach die Leertaste um fortzufahren:", pos=(0, 0.7), height=0.08)
+    shape = visual.ImageStim(win, "../stimuli/complex_shape.png", pos=(0, -0.2))
+    shape.size *= 2.5
+
+    while len(event.getKeys(["space"])) is 0:
+        introduction.draw()
+        shape.draw()
+        win.flip()
+
 def show_welcome(win, text, frontHeight):
     '''
     Present the introduction screen until 'space' is pressed.
@@ -88,6 +102,7 @@ if subject:
 
     # Show depriming sequence
     show_movie(win)
+    show_complex_shape(win)
     Emotions.from_window(win).save(exp)
 
     # Show second dilemmata group
