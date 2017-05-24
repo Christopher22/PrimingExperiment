@@ -81,9 +81,9 @@ class DSR:
         :param visual.Window window: The window in which the questionaire should be drawn.
         :return Emotions: The DS-R.
         '''
-        TITLE = "Bitte bewerten Sie folgende Aussagen:"
+        TITLE = "Bitte bewerte die folgenden Aussagen:"
         SCALE = ["Ich stimme ganz und gar nicht zu", "Ich stimme voll und ganz zu"]
-        BUTTONS = ["Bitte bewerten Sie ihre Emotionen.", "Bewertung abgeben"]
+        BUTTONS = ["Bitte bewerte die Aussagen.", "Bewertung abgeben"]
 
         results = showRatings(window, TITLE, [
             [0, SCALE, u'Ich wäre unter bestimmten Umständen dazu bereit Affenfleisch zu probieren.', 5],
