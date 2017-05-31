@@ -75,6 +75,7 @@ def show_text(win, text, frontHeight):
     :param visual.Window text: The text of the welcome screen.
     '''
     visual.TextStim(win, text, height=frontHeight).draw()
+    win.flip()
     event.waitKeys(keyList=['space'])
 
 # Load the subject from the dialog
