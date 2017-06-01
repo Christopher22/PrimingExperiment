@@ -84,9 +84,9 @@ class Subject:
         dlg.addField('Alter:')
         dlg.addField('Geschlecht:', choices=["Frau", "Mann"])
 
-        values = dlg.show()
+        dlg.show()
         if dlg.OK:
-            id, group, age, gender = values
+            id, group, age, gender = dlg.data
             if int(age) >= 18: return Subject(id, group, age, 'f' if gender == 'Frau' else 'm')
 
         return False
