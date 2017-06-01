@@ -69,6 +69,7 @@ class Dilemma:
             win,
             low=0,
             high=9,
+            stretch=1.5,
             labels=['Absolut unakzeptabel', 'Absolut akzeptabel'],
             scale=None,
             pos=(0, -0.5),

@@ -131,7 +131,7 @@ class Prime:
         neutral.pos = (0, 0.2)
 
         # Prepare the rating
-        rating = visual.RatingScale(window, high=10, acceptKeys=['space'], labels=['Absolut unsympathisch', 'Absolut sympathisch'], scale=None, pos=(0,-0.5), acceptPreText='Bitte bewerte die Sympathie.', showValue=False, acceptSize=2.8, acceptText='Bewertung abgeben')
+        rating = visual.RatingScale(window, high=10, stretch=1.5, acceptKeys=['space'], labels=['Absolut unsympathisch', 'Absolut sympathisch'], scale=None, pos=(0,-0.5), acceptPreText='Bitte bewerte die Sympathie.', showValue=False, acceptSize=2.8, acceptText='Bewertung abgeben')
 
         # Predraw all stimuli for performance reasons
         forward.draw()
