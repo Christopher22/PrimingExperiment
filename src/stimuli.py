@@ -8,11 +8,12 @@ from psychopy import visual, data, event
 class PrimeHandler(data.TrialHandler):
     ''' A handler for multiple primes loaded from a file. '''
 
-    def __init__(self, file, primes):
+    def __init__(self, file, primes, prime_name = 'prime'):
         '''
         Creates a new PrimeHandler.
         :param str file: The path of the config file.
         :param number primes: The number of primes which is to be shown.
+        :param str prime_name: The column name holding the prime.
         :raises ValueError: If the paths are not valid files.
         '''
         primes = random.sample(data.importConditions(file), primes)
@@ -20,6 +21,7 @@ class PrimeHandler(data.TrialHandler):
         # Check if the loaded data matches the format.
         if len(primes[0]) == 4 and 'forward' in primes[0] and 'prime' in primes[0] and 'backward' in primes[0] and 'neutral' in primes[0]:
             self.__basepath = os.path.dirname(os.path.abspath(file))
+            self.__prime_name = prime_name
             data.TrialHandler.__init__(self, primes, nReps=1, dataTypes=['result'], method="fullRandom")
         else:
             raise ValueError('Invalid prime list')
@@ -31,7 +33,7 @@ class PrimeHandler(data.TrialHandler):
         '''
         # Convert local paths to global paths
         forward_path = os.path.join(self.__basepath, self.thisTrial['forward'])
-        prime_path = os.path.join(self.__basepath, self.thisTrial['prime'])
+        prime_path = os.path.join(self.__basepath, self.thisTrial[self.__prime_name])
         backward_path = os.path.join(self.__basepath, self.thisTrial['backward'])
         neutral_path = os.path.join(self.__basepath, self.thisTrial['neutral'])
         return Prime(forward_path, prime_path, backward_path, neutral_path)
