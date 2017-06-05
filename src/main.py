@@ -89,7 +89,7 @@ win = visual.Window(fullscr=True, monitor='testMonitor', checkTiming=True)
 
 # Show welcome screen
 show_text(win, u"""Herzlich willkommen!
-Im Folgenden wirst Du verschieden Gesichter sehen. Wir bitten Dich, diese nach ihrer Sympathie zu bewerten.
+Im Folgenden wirst Du verschiedene Gesichter sehen. Wir bitten Dich, diese nach ihrer Sympathie zu bewerten.
 
 Anschließend werden Dir moralische Dilemmata präsentiert. Deine Aufgabe besteht darin, den Ausgang des Dilemmas zwischen absoluter Ablehnung und vollkommender Zustimmung auf Akzeptanz zu bewerten.
 
